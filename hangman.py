@@ -4,6 +4,16 @@
 ## Computer chooses a word
 ## Player guesses the letters of the word
 
+def validate(word):
+    if word.isalpha():
+        if len(word) == 1:
+            word = word
+        else:
+            word = None
+    else:
+        word = None
+    return word
+
 word = "hangman"
 #print(word)
 wrong_count = 0
@@ -24,23 +34,28 @@ correct_guesses=[]
 while (wrong_count < 10):
         
     guess = input("Guess a letter: ")
-    print (guess)
+    guess = validate(guess)
+    if guess:
+
+        print (guess)
     
-    if guess in word:
-        print("Success!")
-        if guess not in correct_guesses:
-            correct_guesses.append(guess)
-            if correct_guesses == correct_letters:
-                print("You win!")
-                break
-        else:
-            print("Already guessed that letter!")
-        print(correct_guesses)
+        if guess in word:
+            print("Success!")
+            if guess not in correct_guesses:
+                correct_guesses.append(guess)
+                if correct_guesses == correct_letters:
+                    print("You win!")
+                    break
+            else:
+                print("Already guessed that letter!")
+            print(correct_guesses)
         
         #right_count +=1
         #print ("Correct guesses: " + str(right_count))
         #break
+        else:
+            print("Bad luck")
+            wrong_count +=1
+            print ("Wrong guesses: " + str(wrong_count))
     else:
-        print("Bad luck")
-        wrong_count +=1
-        print ("Wrong guesses: " + str(wrong_count))
+        print("Guess not valid")
